@@ -14,8 +14,8 @@ import 'nprogress/css/nprogress.scss'
 import '@style/global.scss'
 
 import CssBaseline from '@mui/material/CssBaseline'
-import ThemeProvider from '@mui/system/ThemeProvider'
-import darkTheme from '@etournity/shared/theme'
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+// import darkTheme from '@etournity/shared/theme'
 
 import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
@@ -62,6 +62,13 @@ dayjs.extend(isBetween)
 export interface AppComponent {
   layoutProps?: AppLayoutProps
 }
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
 
 const App = ({
   Component,

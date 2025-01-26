@@ -1,7 +1,6 @@
 import { RoundStatus, TournamentStatus } from '@prisma/client'
 import { Tournament } from 'nexus-prisma'
 import { Context } from '../context'
-import { mixpanel } from '../globals'
 
 export const endTournament = async (
   ctx: Context,
@@ -34,10 +33,10 @@ export const endTournament = async (
       data: { status: TournamentStatus.FINISHED },
     })
     .then((tournament) => {
-      mixpanel.track('Tournament Finished', {
-        distinct_id: user.id,
-        tournamentId: tournament.id,
-      })
+      // mixpanel.track('Tournament Finished', {
+      //   distinct_id: user.id,
+      //   tournamentId: tournament.id,
+      // })
       return tournament
     })
   await pubsub.publish(

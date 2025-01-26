@@ -6,8 +6,10 @@ import { Context } from '../context'
 
 export const isAuthenticated = rule({
   cache: 'contextual',
-})(async (_, __, ctx: Context) =>
-  ctx.user ? true : 'No user found! Log in to get access.'
+})(async (_, __, ctx: Context) => {
+  console.log(ctx)
+  return ctx.user ? true : 'No user found! Log in to get access.'
+}
 )
 
 export const hasPermissions = (...permissions: string[] | string[][]): Rule =>

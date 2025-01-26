@@ -26,7 +26,7 @@ import { kickParticipant } from '../../helpers/kickParticipant'
 import { closeMatchTickets } from '../../helpers/closeMatchTickets'
 import { removeUnregisteredParticipants } from '../../helpers/removeUnregisteredParticipants'
 dayjs.extend(isBetween)
-import { mixpanel } from '../../globals'
+// import { mixpanel } from '../../globals'
 import { createChatRoom } from '../../helpers/createChatRoom'
 import { addChatRoomMember } from '../../helpers/addChatRoomMember'
 
@@ -104,10 +104,10 @@ export const TournamentMutations = extendType({
             'deleteTournament',
             tournament ?? undefined
           )
-          mixpanel.track('Tournament Deleted', {
-            distinct_id: user.id,
-            tournamentId: tournament.id,
-          })
+          // mixpanel.track('Tournament Deleted', {
+          //   distinct_id: user.id,
+          //   tournamentId: tournament.id,
+          // })
           return null
         }
 
@@ -118,11 +118,11 @@ export const TournamentMutations = extendType({
               data: { status: TournamentStatus.FINISHED },
             })
             .then((tournament: Tournament) => {
-              mixpanel.track('Tournament Finished', {
-                distinct_id: user.id,
-                tournamentId: tournament.id,
-                link: `${process.env.CLIENT_URL}/${tournament.id}`,
-              })
+              // mixpanel.track('Tournament Finished', {
+              //   distinct_id: user.id,
+              //   tournamentId: tournament.id,
+              //   link: `${process.env.CLIENT_URL}/${tournament.id}`,
+              // })
               return tournament
             })
         } else {
@@ -132,11 +132,11 @@ export const TournamentMutations = extendType({
               data: { status: TournamentStatus.CANCELLED },
             })
             .then((tournament: Tournament) => {
-              mixpanel.track('Tournament Cancelled', {
-                distinct_id: user.id,
-                tournamentId: tournament.id,
-                link: `${process.env.CLIENT_URL}/tournament/${tournament.id}`,
-              })
+              // mixpanel.track('Tournament Cancelled', {
+              //   distinct_id: user.id,
+              //   tournamentId: tournament.id,
+              //   link: `${process.env.CLIENT_URL}/tournament/${tournament.id}`,
+              // })
               return tournament
             })
           await prisma.round.updateMany({
@@ -255,11 +255,11 @@ export const TournamentMutations = extendType({
         if (status === TournamentStatus.STARTED && firstRound) {
           await removeUnregisteredParticipants(prisma, pubsub, tournamentId)
           await startRound({ prisma, pubsub, user }, firstRound)
-          mixpanel.track('Tournament Started', {
-            distinct_id: user.id,
-            tournamentId: tournament.id,
-            link: `${process.env.CLIENT_URL}/tournament/${tournament.id}`,
-          })
+          // mixpanel.track('Tournament Started', {
+          //   distinct_id: user.id,
+          //   tournamentId: tournament.id,
+          //   link: `${process.env.CLIENT_URL}/tournament/${tournament.id}`,
+          // })
         }
 
         if (ticketId)
@@ -407,11 +407,11 @@ const createTournamentResolver: FieldResolver<
       },
     })
     .then(async (tournament) => {
-      mixpanel.track('Tournament Created', {
-        distinct_id: user.id,
-        tournamentId: tournament.id,
-        link: `${process.env.CLIENT_URL}/tournament/${tournament.id}`,
-      })
+      // mixpanel.track('Tournament Created', {
+      //   distinct_id: user.id,
+      //   tournamentId: tournament.id,
+      //   link: `${process.env.CLIENT_URL}/tournament/${tournament.id}`,
+      // })
       await createChatRoom(
         {
           name: 'General Chat',
@@ -639,11 +639,11 @@ const addParticipantResolver: FieldResolver<
           )
         }
 
-      mixpanel.track('Participant Registered', {
-        distinct_id: user.id,
-        tournamentId,
-        link: `${process.env.CLIENT_URL}/tournament/${tournamentId}`,
-      })
+      // mixpanel.track('Participant Registered', {
+      //   distinct_id: user.id,
+      //   tournamentId,
+      //   link: `${process.env.CLIENT_URL}/tournament/${tournamentId}`,
+      // })
       return participant
     })
   if (name) {
@@ -800,11 +800,11 @@ const checkinParticipantResolver: FieldResolver<
       },
     })
     .then((participant) => {
-      mixpanel.track('Participant Checked in', {
-        distinct_id: user.id,
-        tournamentId,
-        link: `${process.env.CLIENT_URL}/tournament/${tournamentId}`,
-      })
+      // mixpanel.track('Participant Checked in', {
+      //   distinct_id: user.id,
+      //   tournamentId,
+      //   link: `${process.env.CLIENT_URL}/tournament/${tournamentId}`,
+      // })
       return participant
     })
 

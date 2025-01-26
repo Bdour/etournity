@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { PubSubHandler } from './helpers/pubSubHelper'
-import Mixpanel from 'mixpanel'
+// import Mixpanel from 'mixpanel'
 
 export const REDIS_HOST = process.env.REDIS_URL ?? 'localhost'
 export const REDIS_PORT = Number.parseInt(process.env.REDIS_PORT ?? '6379', 10)
@@ -21,9 +21,9 @@ export const prisma = new PrismaClient({
 
 export const pubsub = new PubSubHandler()
 
-if (!process.env.MIXPANEL_TOKEN)
-  console.error('Missing Mixpanel analytics token!')
+// if (!process.env.MIXPANEL_TOKEN)
+//   console.error('Missing Mixpanel analytics token!')
 
-export const mixpanel = Mixpanel.init(process.env.MIXPANEL_TOKEN ?? '', {
-  host: 'api-eu.mixpanel.com',
-})
+// export const mixpanel = Mixpanel.init(process.env.MIXPANEL_TOKEN ?? '', {
+//   host: 'api-eu.mixpanel.com',
+// })

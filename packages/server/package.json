@@ -5,10 +5,10 @@
   "main": "index.ts",
   "scripts": {
     "build": "yarn generate && yarn tsc --outDir dist",
-    "dev": "npx prisma db push && ts-node-dev --transpile-only src/index.ts",
-    "generate": "npx prisma generate && yarn generate:nexus",
+    "dev": "yarn prisma db push && ts-node-dev --transpile-only src/index.ts",
+    "generate": "yarn prisma generate && yarn generate:nexus",
     "generate:nexus": "ts-node --transpile-only src/schema.ts --nexus-exit",
-    "migrate": "npx prisma migrate dev",
+    "migrate": "yarn prisma migrate dev",
     "start": "ts-node --transpile-only src/index.ts",
     "db:seed": "ts-node --transpile-only src/seed/justSeed.ts",
     "test": "exit 0",
@@ -69,6 +69,7 @@
   "devDependencies": {
     "@types/bull": "^3.15.7",
     "@types/mixpanel": "^2.14.3",
+    "prisma": "5.6.0",
     "ts-node-dev": "1.1.8"
   }
 }

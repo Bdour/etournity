@@ -9,7 +9,7 @@ import ms from 'ms'
 import jwt from 'jsonwebtoken'
 import { PrismaClient, User, UserAccount } from '@prisma/client'
 import { Except } from 'type-fest'
-import { mixpanel } from './globals'
+// import { mixpanel } from './globals'
 interface OAuthResponse {
   id: string
   username: string
@@ -143,20 +143,20 @@ export default class AuthProvider {
         data: {
           displayName: acc.username,
           linkedAccounts: {
-            create: acc,
+            create: {...acc, fetchedAt : acc.fetchedAt.toString()},
           },
           roles: ['user', 'organizer'],
         },
       })
       .then((user) => {
-        mixpanel.track('User Registration', { distinct_id: user.id })
-        mixpanel.people.set(user.id, {
-          $name: acc.username,
-          $discriminator: acc.discriminator,
-          $created: Date.now(),
-          $email: acc.email,
-          $avatar: acc.avatar,
-        })
+        // mixpanel.track('User Registration', { distinct_id: user.id })
+        // mixpanel.people.set(user.id, {
+        //   $name: acc.username,
+        //   $discriminator: acc.discriminator,
+        //   $created: Date.now(),
+        //   $email: acc.email,
+        //   $avatar: acc.avatar,
+        // })
         return user
       })
   }
